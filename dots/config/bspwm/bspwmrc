@@ -30,4 +30,12 @@ bspc config focused_border_color "#A3BE8C"
 
 logger -t bspwmrc "finished bspc config"
 
+feh --bg-scale ~/.walls/monochrome.nested.cube.1920x1080.jpg
+
+if [ $? -ne 0 ]; then
+    logger -t bspwmrc "failed to set wallpaper"
+else
+    logger -t bspwmrc "successfully set wallpaper"
+fi
+
 logger -t bspwmrc "finished running bspwmrc"
