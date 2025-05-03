@@ -5,6 +5,15 @@
 super + Return
     alacritty
 
+XF86AudioLowerVolume
+	pulsemixer --change-volume -2
+
+XF86AudioRaiseVolume
+	pulsemixer --change-volume +2
+
+XF86AudioMute
+	pulsemixer --toggle-mute
+
 #
 # bspwm hotkeys
 #
