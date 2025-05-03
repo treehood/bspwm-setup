@@ -1,2 +1,5 @@
 #!/bin/bash
+
+pulseaudio --start
+
 exec bspwm
