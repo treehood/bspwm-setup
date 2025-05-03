@@ -247,6 +247,48 @@ function setup_dots()
     done
 }
 
+function setup_dirs()
+{
+    log_info "setting up directories..."
+
+    # XXX: Ideally this is set from a file, however due to the nature of
+    # `xdg-user-dirs-update` (it performs an eval without doing sanity checks
+    # on input), we do it this way for now.
+    # The file that contains these mappings is: `user-dirs.dirs`.
+
+    log_info "making home directories..."
+
+    log_exec "mkdir -p \"$HOME/art\""
+    log_exec "mkdir -p \"$HOME/code\""
+    log_exec "mkdir -p \"$HOME/files\""
+    log_exec "mkdir -p \"$HOME/files/templates\""
+    log_exec "mkdir -p \"$HOME/files/public\""
+    log_exec "mkdir -p \"$HOME/media/photos\""
+    log_exec "mkdir -p \"$HOME/media/images\""
+    log_exec "mkdir -p \"$HOME/media/music\""
+    log_exec "mkdir -p \"$HOME/media/video\""
+    log_exec "mkdir -p \"$HOME/tmp\""
+
+    log_info "finished making home directories"
+
+    log_info "updating xdg user dirs..."
+
+    log_exec "xdg-user-dirs-update --set DESKTOP     \"$HOME/tmp\""
+    log_exec "xdg-user-dirs-update --set DOCUMENTS   \"$HOME/files\""
+    log_exec "xdg-user-dirs-update --set DOWNLOAD    \"$HOME/tmp\""
+    log_exec "xdg-user-dirs-update --set MUSIC       \"$HOME/media/music\""
+    log_exec "xdg-user-dirs-update --set PICTURES    \"$HOME/media/images\""
+    log_exec "xdg-user-dirs-update --set PUBLICSHARE \"$HOME/files/public\""
+    log_exec "xdg-user-dirs-update --set TEMPLATES   \"$HOME/files/templates\""
+    log_exec "xdg-user-dirs-update --set VIDEOS      \"$HOME/media/video"\"
+
+    log_info "finished updating xdg user dirs"
+
+    log_info "finished setting up directories"
+
+    return 0
+}
+
 log_info "running as '$(whoami)'..."
 
 if [ "$EUID" -eq 0 ]; then
@@ -264,4 +306,6 @@ if [ "$EUID" -eq 0 ]; then
     fi
 else
     setup_dots
+
+    setup_dirs
 fi
