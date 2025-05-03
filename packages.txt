@@ -6,3 +6,4 @@ xdg-user-dirs
 pulseaudio
 pulsemixer
 xsecurelock
+feh
