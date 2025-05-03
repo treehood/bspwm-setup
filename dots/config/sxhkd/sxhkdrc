@@ -1,4 +1,11 @@
 #
+# wm independent hotkeys
+#
+
+super + Return
+    alacritty
+
+#
 # bspwm hotkeys
 #
 
