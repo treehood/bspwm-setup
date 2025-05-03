@@ -3,3 +3,5 @@ x11-utils
 bspwm
 alacritty
 xdg-user-dirs
+pulseaudio
+pulsemixer
