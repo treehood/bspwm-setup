@@ -289,6 +289,33 @@ function setup_dirs()
     return 0
 }
 
+function install_vim_plugins()
+{
+    log_info "downloading plug.vim from master"
+    log_exec "curl -fs --create-dirs -o \"$HOME/.vim/autoload/plug.vim\" \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    if [ $? -eq 0 ]; then
+        log_info "downloaded plug.vim successfully"
+    else
+        log_err "failed to download plug.vim"
+        return 1
+    fi
+
+    log_info "installing vim plugins..."
+
+    # Referenced from: 'https://github.com/junegunn/vim-plug/issues/225'
+    # Piped to /dev/null so it does not pollute instal logs.
+    log_exec "vim +PlugInstall +qall > /dev/null 2>&1"
+    if [ $? -eq 0 ]; then
+        log_info "installed vim plugins successfully"
+    else
+        log_err "failed to install vim plugins"
+        return 1
+    fi
+
+    return 0
+}
+
 log_info "running as '$(whoami)'..."
 
 if [ "$EUID" -eq 0 ]; then
@@ -308,4 +335,6 @@ else
     setup_dots
 
     setup_dirs
+
+    install_vim_plugins
 fi
