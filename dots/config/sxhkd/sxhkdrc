@@ -17,6 +17,9 @@ XF86AudioMute
 super + shift + l
     xsecurelock
 
+super + b
+    firefox-esr
+
 #
 # bspwm hotkeys
 #
