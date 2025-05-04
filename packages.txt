@@ -1,3 +1,4 @@
+# Main
 xinit
 x11-utils
 bspwm
@@ -7,3 +8,9 @@ pulseaudio
 pulsemixer
 xsecurelock
 feh
+
+# Util
+git
+curl
+ripgrep
+vim
