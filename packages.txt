@@ -14,3 +14,4 @@ git
 curl
 ripgrep
 vim
+firefox-esr
