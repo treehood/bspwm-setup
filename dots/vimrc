@@ -1,0 +1,87 @@
+" --- Setup / Insall Plugins ---
+" Plug is installed via: wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim ~/.vim/autoload/plug.vim
+" Specify a directory for plugins.
+call plug#begin('~/.vim/plugged')
+
+" Install Vim Airline for top/bottom context bars.
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Install FZF for searching for files.
+" NOTE: Requires installing 'silversearcher-ag' via apt.
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Install vim-glsl for shader language syntax highlighting.
+Plug 'CaffeineViking/vim-glsl'
+
+" Insall tcomment for easy comment toggling.
+Plug 'tomtom/tcomment_vim'
+
+" Install vim-trailing-whitespace to trim whitespace.
+Plug 'bronson/vim-trailing-whitespace'
+
+" Nord visual theme.
+Plug 'arcticicestudio/nord-vim'
+
+" Install vim-gitgutter for git info in side.
+" Plug 'airblade/vim-gitgutter'
+
+call plug#end()
+
+" --- Plugin Settings ---
+" Set Airline Theme
+" let g:airline_theme='nord'
+let g:airline#extensions#tabline#enabled = 1
+
+" Keyboard shortcut for toggling FZF
+" Files are ignored in FZF based off of .gitignore
+let $FZF_DEFAULT_COMMAND = 'rg --files'
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+map <C-p> :Files<CR>
+map <C-l> :Rg<CR>
+map <C-o> :Buffers<CR>
+
+" --- Vim Configuration ---
+" Render tabs with 4 spaces.
+" set tabstop=4
+" set softtabstop=0 noexpandtab
+" set shiftwidth=4
+set shiftwidth=4 " Tell Vim that a tab should be 4 spaces when inserted, but still use the tab key.
+set softtabstop=4
+set tabstop=4
+set expandtab
+set smarttab
+set cindent " Make editing C/C++ files a little easier by indenting to the correct depth after a bracket.
+set ai " Enable auto indenting
+set si " Enable smart indenting
+set wrap
+set backspace=indent,eol,start " Allow usage of the backspace key
+set hidden " Hide open and unsaved buffers instead of closing them.
+
+" Quickly switch between adjacent buffers.
+nnoremap <silent> <Leader>p :bnext<CR>
+nnoremap <silent> <Leader>o :bprev<CR>
+
+" Turn line numbers on.
+set nu
+
+" Highlight Searches
+set hlsearch " Disable with :noh
+set incsearch " Use incremental search rules
+set ignorecase " Case insensitive matching
+set smartcase " (Unless a capital letter is present)
+
+" Remove whitespace whenever a buffer is written to.
+autocmd BufWritePre * FixWhitespace
+
+" Style Vertical Bar
+highlight VertSplit cterm=NONE
+
+silent! colorscheme nord
+if (has("termguicolors"))
+    set termguicolors
+endif
+
+set colorcolumn=80
