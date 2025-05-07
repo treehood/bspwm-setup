@@ -8,6 +8,7 @@ pulseaudio
 pulsemixer
 xsecurelock
 feh
+network-manager
 
 # Util
 git
