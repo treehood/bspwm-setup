@@ -172,6 +172,36 @@ function install_packages()
     return "$res"
 }
 
+function setup_network_manager()
+{
+    log_info "setting up network manager..."
+
+    systemctl stop networking
+    systemctl disable networking
+
+    if [ -f /etc/network/interfaces ]; then
+        mv /etc/network/interfaces /etc/network/interfaces.bak
+        log_info "backed up network interfaces"
+    fi
+
+    systemctl enable NetworkManager
+    if [ $? -ne 0 ]; then
+        log_warning "unable to enable network manager"
+    fi
+
+    systemctl start NetworkManager
+    if [ $? -ne 0 ]; then
+        log_warning "unable to start network manager"
+    fi
+
+    sed -i 's/managed=false/managed=true/g'\
+        /etc/NetworkManager/NetworkManager.conf
+
+    systemctl restart NetworkManager
+
+    log_info "finished setting up network manager"
+}
+
 function setup_dots()
 {
     local dir_dots="$dir_script/dots/"
@@ -323,6 +353,8 @@ if [ "$EUID" -eq 0 ]; then
         original_uid="$SUDO_UID"
 
         install_packages
+
+        setup_network_manager
 
         # Rerun script as original user.
         sudo -u "#$original_uid" "$0" "$@"
