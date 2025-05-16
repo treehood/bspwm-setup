@@ -1,0 +1,9 @@
+docs DOCUMENTS
+docs/templates TEMPLATES
+docs/public PUBLICSHARE
+media
+media/images PICTURES
+media/music MUSIC
+media/video VIDEOS
+projects
+tmp DOWNLOAD
